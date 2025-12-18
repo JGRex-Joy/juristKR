@@ -123,6 +123,7 @@ cd jurist-bot
 ```
 
 2️⃣ Environment Variables
+
 **Create a .env file:**
 ```
 LLM_API_KEY=your_google_genai_key
