@@ -123,7 +123,7 @@ cd jurist-bot
 ```
 
 2️⃣ Environment Variables
-- Create a .env file:
+**Create a .env file:**
 ```
 LLM_API_KEY=your_google_genai_key
 TELEGRAM_API_TOKEN=your_telegram_bot_token
