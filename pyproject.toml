@@ -1,0 +1,20 @@
+[project]
+name = "jurist"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiogram>=3.23.0",
+    "docx>=0.2.4",
+    "fastapi>=0.124.0",
+    "google-genai>=1.54.0",
+    "langchain-text-splitters>=1.0.0",
+    "markdown>=3.10",
+    "pydantic>=2.12.5",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.1",
+    "qdrant-client>=1.16.1",
+    "sentence-transformers>=5.1.2",
+    "uvicorn>=0.38.0",
+]
