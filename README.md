@@ -31,6 +31,7 @@ The system is built on a **Retrieval-Augmented Generation (RAG)** architecture, 
 
 ## 🏗️ Architecture Overview
 
+```
 User (Telegram)
 ↓
 Telegram Bot (Aiogram)
@@ -44,9 +45,7 @@ RAG Pipeline
 └── LLM Answer Generator
 ↓
 Final Answer
-
-yaml
-Copy code
+```
 
 ---
 
@@ -55,117 +54,127 @@ Copy code
 ### 1. Query Normalization
 User input is first normalized using an LLM to reduce ambiguity and improve retrieval quality.
 
-```python
+```
 normalized_query = normalizer.normalize(user_query)
-2. Embedding
+```
+
+### 2. Embedding
 The normalized query is converted into a vector using LaBSE (ru-sts) embeddings.
 
-python
-Copy code
+```
 vector = embedder.encode(normalized_query)
-3. Semantic Search
+```
+
+### 3. Semantic Search
 Relevant chunks of the Criminal Code are retrieved from Qdrant using vector similarity search.
 
-python
-Copy code
+```
 context = searcher.search(vector)
-4. Answer Generation
+```
+
+### 4. Answer Generation
 The original user question + retrieved context are passed to the LLM for answer generation.
-
-python
-Copy code
+```
 answer = query.answer(user_query, context)
-🧠 Models & Technologies
-Component	Technology
-LLM	Google Generative AI (gemma-3-27b-it)
-Embeddings	sergeyzh/LaBSE-ru-sts
-Vector DB	Qdrant
-Backend	FastAPI
-Telegram Bot	Aiogram
-Chunking	LangChain RecursiveCharacterTextSplitter
+```
 
-📂 Project Structure
-css
-Copy code
+## 🧠 Models & Technologies
+
+| Component     | Technology                                        |
+|:--------------|:--------------------------------------------------|
+| LLM           | Google Generative AI (`gemma-3-27b-it`)           |
+| Embeddings    | `sergeyzh/LaBSE-ru-sts`                           |
+| Vector DB     | Qdrant                                            |
+| Chunking      | LangChain `RecursiveCharacterTextSplitter`        |
+| Backend       | FastAPI                                           |
+| Telegram Bot  | Aiogram                                           |
+
+## 📂 Project Structure
+```
 rag_service/
+├── main.py
+├── data/
+│   ├── uk_kr.docx
 ├── llm/
 │   ├── client.py
 │   ├── layers/
+│   │   ├── base.py
 │   │   ├── normalizer.py
 │   │   └── query.py
 ├── rag/
 │   ├── embedder.py
 │   └── pipeline.py
 ├── storage/
+│   ├── qdrant_store.py
 │   └── qdrant_search.py
 ├── preprocessing/
+│   ├── prepare_data.py
+│   ├── docx_reader.py
 │   └── chunker.py
 bot/
-├── telegram_bot.py
-backend/
 ├── main.py
-🚀 Getting Started
+```
+
+## 🚀 Getting Started
 1️⃣ Clone the repository
-bash
-Copy code
+```
 git clone https://github.com/your-username/jurist-bot.git
 cd jurist-bot
-2️⃣ Environment Variables
-Create a .env file:
+```
 
-env
-Copy code
+2️⃣ Environment Variables
+- Create a .env file:
+```
 LLM_API_KEY=your_google_genai_key
 TELEGRAM_API_TOKEN=your_telegram_bot_token
 BACKEND_URL=http://localhost:8000/ask
-3️⃣ Run Qdrant
-bash
-Copy code
-docker run -p 6333:6333 qdrant/qdrant
-4️⃣ Start Backend (FastAPI)
-bash
-Copy code
-uvicorn backend.main:app --reload
-5️⃣ Start Telegram Bot
-bash
-Copy code
-python bot/telegram_bot.py
-📌 API Example
-POST /ask
-Request:
+```
 
-json
-Copy code
+3️⃣ Run Qdrant
+```
+docker run -p 6333:6333 qdrant/qdrant
+```
+4️⃣ Start Backend (FastAPI)
+```
+uvicorn rag_service.main:app --reload
+```
+5️⃣ Start Telegram Bot
+```
+python bot/main.py
+```
+
+## 📌 API Example
+
+### POST /ask
+**Request:**
+```
 {
   "question": "Какая ответственность за кражу?"
 }
-Response:
+```
 
-json
-Copy code
+**Response:**
+```
 {
   "answer": "Согласно статье ... УК КР, кража ..."
 }
-🛡️ Limitations
+```
+
+## 🛡️ Limitations
 The bot does not replace a licensed lawyer
 
 Answers depend on the quality of embeddings and retrieved context
 
 Legal texts may require updates if legislation changes
 
-🔮 Future Improvements
+## 🔮 Future Improvements
 ✅ Answer caching
-
 📌 Article citation formatting
-
 🧾 Source highlighting
-
 🌐 Multilingual support
-
 🔐 User session context
-
 📊 Evaluation & retrieval metrics
 
-👨‍💻 Author
-JGRex-Joy — Junior AI Engineer
-Built with ❤️ as a legal-tech & LLM engineering project.
+## 👨‍💻 Author
+JGRex-Joy - Junior AI Engineer
+Built with ❤️ as a legal-tech & LLM/AI engineering project.
