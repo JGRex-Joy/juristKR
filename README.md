@@ -169,10 +169,15 @@ Legal texts may require updates if legislation changes
 
 ## 🔮 Future Improvements
 ✅ Answer caching
+
 📌 Article citation formatting
+
 🧾 Source highlighting
+
 🌐 Multilingual support
+
 🔐 User session context
+
 📊 Evaluation & retrieval metrics
 
 ## 👨‍💻 Author
