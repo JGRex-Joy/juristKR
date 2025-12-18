@@ -183,4 +183,5 @@ Legal texts may require updates if legislation changes
 
 ## 👨‍💻 Author
 JGRex-Joy - Junior AI Engineer
+
 Built with ❤️ as a legal-tech & LLM/AI engineering project.
